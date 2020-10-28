@@ -1,27 +1,37 @@
 package;
 
 import flixel.FlxG;
+import flixel.FlxSprite;
 import flixel.FlxState;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
 
 class PlayState extends FlxState
 {	
-	var text:FlxText;
+	var sprite:FlxSprite;
 	override public function create()
 	{
 		super.create();
-		text = new FlxText(0,0,FlxG.width,"Hello World!");
-		text.setFormat(null,64,FlxColor.RED,FlxTextAlign.CENTER);
-		add(text);
+
+		sprite = new FlxSprite();
+		sprite.makeGraphic(300,300,FlxColor.WHITE);
+		for(x in 0 ... 300){
+			for(y in 0 ... 300){
+				if(x%2 == 1 && y%2 == 1) 
+					sprite.pixels.setPixel(x,y,0x0000ff);
+				if(x < 5 || y < 5 || x > 295 || y > 295 )                 
+					sprite.pixels.setPixel(x,y,0xffffff);          
+				             
+			}
+		}
+		 add(sprite);     
+
 
 	}
 
 	override public function update(elapsed:Float)
 	{
 		super.update(elapsed);
-		text.y++;
-		if(text.y > FlxG.height)
-			text.y = -64;
+		sprite.x +=100 * elapsed;
 	}
 }
