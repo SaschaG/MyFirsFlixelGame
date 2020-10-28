@@ -4,6 +4,7 @@ import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxState;
 import flixel.text.FlxText;
+import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 
 class PlayState extends FlxState
@@ -14,18 +15,14 @@ class PlayState extends FlxState
 		super.create();
 
 		sprite = new FlxSprite();
-		sprite.makeGraphic(300,300,FlxColor.WHITE);
-		for(x in 0 ... 300){
-			for(y in 0 ... 300){
-				if(x%2 == 1 && y%2 == 1) 
-					sprite.pixels.setPixel(x,y,0x0000ff);
-				if(x < 5 || y < 5 || x > 295 || y > 295 )                 
-					sprite.pixels.setPixel(x,y,0xffffff);          
-				             
-			}
-		}
-		 add(sprite);     
+		sprite.loadGraphic(AssetPaths.Battleship_1x3_top__png);
+		sprite.x = 100;
+		sprite.y = 0;
+		add(sprite);     
 
+		FlxTween.tween(sprite, {x: FlxG.width - sprite.width,
+							y: FlxG.height - sprite.height,
+							angle: 360.0}, 5, {type: FlxTweenType.PINGPONG});
 
 	}
 
